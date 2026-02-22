@@ -1,0 +1,177 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  font-family: 'Poppins', sans-serif;
+  overflow: hidden;
+
+  /* Gradient bergerak */
+  background: linear-gradient(-45deg, #ff9a9e, #fad0c4, #fbc2eb, #a18cd1);
+  background-size: 400% 400%;
+  animation: gradientBG 12s ease infinite;
+}
+
+@keyframes gradientBG {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+.judul {
+  position: absolute;
+  top: 60px;
+  font-size: 55px;
+  color: white;
+  text-shadow: 0 0 20px rgba(255,255,255,0.9);
+}
+
+/* CARD AREA */
+.cards {
+  position: relative;
+  display: flex;
+  gap: 40px;
+}
+
+.card {
+  width: 140px;
+  height: 220px;
+  perspective: 1200px;
+  transition: 0.3s;
+}
+
+.card:hover {
+  transform: translateY(-12px) scale(1.08);
+}
+
+.card.red:hover { box-shadow: 0 0 35px #ff6b6b; }
+.card.blue:hover { box-shadow: 0 0 35px #4dabf7; }
+.card.green:hover { box-shadow: 0 0 35px #51cf66; }
+
+.card-inner {
+  width: 100%;
+  height: 100%;
+  position: relative;
+  transition: transform 0.8s;
+  transform-style: preserve-3d;
+}
+
+.card:hover .card-inner {
+  transform: rotateY(180deg);
+}
+
+.card-front,
+.card-back {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  border-radius: 80px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: white;
+  font-weight: bold;
+  backface-visibility: hidden;
+  box-shadow: 0 15px 30px rgba(0,0,0,0.4);
+}
+
+.card-back {
+  transform: rotateY(180deg);
+  overflow: hidden;
+}
+
+.card-back img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 80px;
+}
+
+/* DESKRIPSI */
+.deskripsi {
+  position: absolute;
+  bottom: -80px;
+  width: 100%;
+  text-align: center;
+  font-size: 28px;
+  font-weight: bold;
+  opacity: 0;
+  transform: translateY(20px);
+  transition: 0.4s;
+  text-shadow: 0 0 15px white;
+}
+
+.merah { color: #ff6b6b; }
+.biru { color: #4dabf7; }
+.hijau { color: #51cf66; }
+
+.card.red:hover ~ .merah,
+.card.blue:hover ~ .biru,
+.card.green:hover ~ .hijau {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* SPARKLES */
+.sparkles {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+}
+
+.sparkles span {
+  position: absolute;
+  font-size: 18px;
+  opacity: 0;
+}
+
+.sparkles span:nth-child(1) { top: 10%; left: 20%; }
+.sparkles span:nth-child(2) { top: 40%; left: 80%; }
+.sparkles span:nth-child(3) { top: 70%; left: 30%; }
+.sparkles span:nth-child(4) { top: 20%; left: 60%; }
+
+@keyframes sparkle {
+  0% { transform: scale(0.5) rotate(0deg); opacity: 0; }
+  50% { opacity: 1; transform: scale(1.4) rotate(180deg); }
+  100% { opacity: 0; transform: scale(0.5) rotate(360deg); }
+}
+
+.card:hover .sparkles span {
+  animation: sparkle 1s ease infinite;
+}
+
+/* HEART FLOAT */
+.hearts {
+  position: fixed;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  pointer-events: none;
+}
+
+.hearts span {
+  position: absolute;
+  font-size: 25px;
+  animation: float 7s linear infinite;
+  opacity: 0;
+}
+
+.hearts span:nth-child(1) { left: -120px; animation-delay: 0s; }
+.hearts span:nth-child(2) { left: -60px; animation-delay: 1.5s; }
+.hearts span:nth-child(3) { left: 0px; animation-delay: 3s; }
+.hearts span:nth-child(4) { left: 60px; animation-delay: 4.5s; }
+.hearts span:nth-child(5) { left: 120px; animation-delay: 6s; }
+
+@keyframes float {
+  0% { transform: translateY(0) scale(0.8); opacity: 0; }
+  20% { opacity: 1; }
+  100% { transform: translateY(-700px) scale(1.6); opacity: 0; }
+}
